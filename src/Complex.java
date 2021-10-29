@@ -13,7 +13,6 @@ public class Complex {
         return complex;
     }
 
-
     public Complex add(Complex val){
         int numOutput = num + val.getNum();
         int complexOutput = complex + val.getComplex();
@@ -32,7 +31,31 @@ public class Complex {
         return new Complex(numOutput, complexOutput);
     }
 
+    public Complex exp(int n) {
+        Complex ans = new Complex(num, complex);
+        /*double real = num;
+        double imag = complex;*/
+        if (n > 1) {
+            for (int i = 1; i < n; i++) {
+                ans = multiply(ans);
+            }
+        }
+        if (n == 1) {
+            return new Complex(num, complex);
+        }
+
+            return ans;
+        }
+
+
     public String toString() {
+        // If real numbers equals 0
+        if (num == 0){
+            return complex + "i";
+        }
+        if ( (complex ==  1 ) || ( complex ==  -1) ){
+            return num + " + i" ;
+        }
         // if the imaginary number is positive
         if (complex > 0) {
             return num + " + " + complex + "i";
@@ -41,6 +64,7 @@ public class Complex {
         if (complex < 0){
             return num + " - " + complex*-1 + "i";
         }
+
         else{
             return "";
         }
