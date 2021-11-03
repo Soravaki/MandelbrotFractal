@@ -1,6 +1,6 @@
 public class Runner {
     public static void main(String[] args) {
-        Complex x = new Complex(3, 4);
+        /*Complex x = new Complex(3, 4);
         Complex y = new Complex(4, 2);
         System.out.println(x.add(y));
         System.out.println(x.subtract(y));
@@ -12,7 +12,7 @@ public class Runner {
 
         Complex m = new Complex (1, 1);
         System.out.println("z1 = " + m);
-        System.out.println("z2 = " + m.multiply(m));
-
+        System.out.println("z2 = " + m.multiply(m));*/
+        MandelBrot f = new MandelBrot(-0.5, -1, 1.5, 1, 500, 500);
     }
 }
