@@ -13,6 +13,6 @@ public class Runner {
         Complex m = new Complex (1, 1);
         System.out.println("z1 = " + m);
         System.out.println("z2 = " + m.multiply(m));*/
-        MandelBrot f = new MandelBrot(-0.5, -1, 1.5, 1, 500, 500);
+        MandelBrot f = new MandelBrot(-2, -1.5, 1, 1.5, 500);
     }
 }

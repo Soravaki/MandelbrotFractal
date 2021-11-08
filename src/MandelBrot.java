@@ -4,51 +4,52 @@ public class MandelBrot {
     Complex m;
     Picture p;
     int a, b;
-    public MandelBrot(double lowx, double lowy, double highx, double highy, int imgWidth, int imgHeight){
-        p = new Picture(imgWidth, imgHeight);
-        m = new Complex(0,0);
-        /*for (int a = 0; a<imgWidth; a++){
-            for (int b = 0; b<imgHeight; b++){
-                m = new Complex(a,b);
-                if (Sequence(m) ){
-                    p.set(a,b,Color.black);
-                }
-                else{
-                    p.set(a,b,Color.white);
-                }
-            }
-        }*/
+    public MandelBrot(double lowx, double lowy, double highx, double highy, int imgSize){
+        p = new Picture(imgSize, imgSize);
         m = new Complex(a,b);
-        for (double i=lowy; i<lowy; i += ( (lowy+lowy)/imgWidth) ){
-            for (double j=lowx; j<lowx; j += ( (lowx+lowx)/imgHeight) ){
-                a++;
-                if (Sequence(m) ){
-                    p.set(a,b,Color.black);
+        int max = 255;
+
+        Color[] colors = new Color[max];
+        for (int i = 0; i<max; i++) {
+            //colors[i] = Color.getHSBColor(i/360f,  1, i/(i+8f)); //OG
+            //colors[i] = Color.getHSBColor(i/(220f/360),  1, i/(i+8f)); // weird hurt eye
+            colors[i] = Color.getHSBColor(i/360f,  1, i/(i+8f));
+        }
+
+        for (int i = 0; i<imgSize; i++){
+            for (int j = 0; j<imgSize; j++){
+
+                p.set(i,j, colors[i]);
+            }
+            System.out.println(i + " :: " +colors[i]);
+            p.show();
+        }
+
+        final double stepx = (highx - lowx) / imgSize;
+        final double stepy = (highy - lowy) / imgSize;
+        for (int x = 0; x < imgSize; x++) {
+            for (int y = 0; y < imgSize; y++) {
+                Complex c = new Complex(lowx+x*stepx, lowy+y*stepy);
+                int iterations = Sequence(c);
+                if (iterations < max) {
+                    p.set(x, y, colors[iterations]);
                 }
-                else{
-                    p.set(a,b,Color.white);
-                }
-                b++;
+
+                else p.set(x, y, Color.black);
             }
         }
         p.show();
     }
 
-    public boolean Sequence(Complex val){
-        //System.out.println( m.add ( m.exp(2)) );
+    public int Sequence(Complex val){
+        int iterations = 0;
         Complex sequence = val;
-        //System.out.println(sequence);
-        //System.out.println("start :: " + sequence);
-        for (int i=0; i<1000; i++){
+        //System.out.println(val);
+        while ( val.magnitude(sequence) < 2 && iterations < 255) {
             sequence = val.add ( sequence.exp(2));
-            //System.out.println( sequence );
-            //System.out.println("sequence :: " + sequence);
-            if ( val.magnitude(sequence) > 2 ){
-                //System.out.println("magnitude :: "+ val.magnitude(sequence) + " :: " + sequence);
-                return false;
-            }
+            //System.out.println(sequence);
+            iterations++;
         }
-
-        return true;
+        return iterations;
     }
 }
